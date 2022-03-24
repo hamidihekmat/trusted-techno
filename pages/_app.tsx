@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import { globalStyles } from '@ui/stiches';
 import '../styles/globals.css';
 
-import { Layout } from '@components/Layout';
+import { Layout } from '@components/Layouts/Head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles();

@@ -12,6 +12,12 @@ export const Layout: FC = ({ children }) => {
           type="font/woff2"
           as="font"
         />
+        <link
+          rel="preload"
+          href="/fonts/Maragsƒ.otf"
+          type="font/opentype"
+          as="font"
+        />
       </Head>
       <main>{children}</main>
     </>

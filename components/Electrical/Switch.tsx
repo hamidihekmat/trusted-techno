@@ -2,7 +2,6 @@ import { styled } from '@ui/stiches';
 import { IDimmerMachine } from './dimmerMachine';
 
 import { useActor } from '@xstate/react';
-import useSound from 'use-sound';
 
 export const DimmableSwitch = ({
   dimmerMachineRef,
@@ -11,16 +10,12 @@ export const DimmableSwitch = ({
 }) => {
   const [state, send] = useActor(dimmerMachineRef);
   const { dimLevel } = state.context;
-  const [playSwitchOn] = useSound('/sound/switch-on.mp3');
-  const [playSwitchOff] = useSound('/sound/switch-off.mp3');
 
   const handleToggle = () => {
     send('TOGGLE');
     if (state.matches('inactive')) {
-      playSwitchOn();
     }
     if (state.matches('active')) {
-      playSwitchOff();
     }
   };
 
@@ -51,6 +46,9 @@ export const DimmableSwitch = ({
 };
 
 const FacePlate = styled('div', {
+  '-webkit-touch-callout': 'none',
+  'user-select': 'none',
+
   width: '200px',
   height: '270px',
   minHeight: '270px',
@@ -59,7 +57,7 @@ const FacePlate = styled('div', {
 
   background: 'White',
   border: '1px solid rgba(0, 0, 0, 0.1)',
-  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1), inset 0px 0px 48px 1px #DCDCDC',
+  boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1), inset 0px 0px 48px 1px #DCDCDC',
 });
 
 const OuterSwitch = styled('div', {
@@ -100,11 +98,11 @@ const LutronText = styled('p', {
   position: 'absolute',
   fontFamily: '$helvetica',
   fontSize: '8px',
-  fontWeight: 'bold',
+  fontWeight: 'lighter',
   textTransform: 'uppercase',
   color: '#BBBBBB',
-  bottom: 0,
-  left: '10%',
+  bottom: '3%',
+  left: '13%',
 });
 
 const Dimmer = styled('input', {

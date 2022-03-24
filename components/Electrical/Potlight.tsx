@@ -1,20 +1,6 @@
-import { styled } from '@ui/stiches';
+import { styled, css } from '@ui/stiches';
 import { useActor } from '@xstate/react';
-import { radiate } from './animate';
 import type { IDimmerMachine } from './dimmerMachine';
-
-const determineLightLevel = (value: number) => {
-  if (value > 0 && value <= 25) {
-    return 'dim25';
-  }
-  if (value > 25 && value <= 50) {
-    return 'dim50';
-  }
-  if (value > 50 && value <= 90) {
-    return 'dim75';
-  }
-  return 'active';
-};
 
 export const Potlight = ({
   dimmerMachineRef,
@@ -23,17 +9,32 @@ export const Potlight = ({
 }) => {
   const [state] = useActor(dimmerMachineRef);
 
-  const { dimLevel } = state.context;
+  const { dimLevel, temperature } = state.context;
+
+  const dimConfig = { initial: 100, multiplier: 1.3 };
+
+  const tempColor =
+    temperature === '3000'
+      ? '#fffde8'
+      : temperature === '4000'
+      ? '#ffffff'
+      : '#f0fdff';
 
   return (
     <Wrapper>
       <OuterRing>
         <LightSource
+          css={{
+            $$temp: tempColor,
+            $$dimLevel: state.matches('dim')
+              ? `${dimConfig.initial + dimLevel * dimConfig.multiplier}px`
+              : undefined,
+          }}
           variant={
             state.matches('active')
               ? 'active'
               : state.matches('dim')
-              ? determineLightLevel(dimLevel)
+              ? 'dim'
               : 'inactive'
           }
         />
@@ -65,31 +66,20 @@ const LightSource = styled('div', {
   top: '50%',
   transform: 'translate(-50%, -50%)',
 
-  background: 'radial-gradient(#d5d5d5, #ffffff)',
-  transition: 'box-shadow 500ms ease-in-out',
+  transition: 'all 500ms ease-in-out',
+  // tokens
+  $$temp: '#fffbcc', // 3000: #fffbcc 4000: #ffffff 5000:
+  $$dimLevel: '100px',
   variants: {
     variant: {
       active: {
         boxShadow:
-          '0 0 200px #fff, 0 0 200px #fff, 0 0 200px #fff, 0 0 200px #fff, 0 0 200px #fff',
-        animation: `${radiate} ease-in-out 10s infinite`,
+          '0 0 225px $$temp, 0 0 225px $$temp, 0 0 225px $$temp, 0 0 225px $$temp, 0 0 225px $$temp',
       },
-      inactive: {},
+      inactive: { background: 'radial-gradient(#c7c7c7, #e1e1e1)' },
       dim: {
         boxShadow:
-          '0 0 50px #fff, 0 0 50px #fff, 0 0 50px #fff, 0 0 50px #fff, 0 0 50px #fff',
-      },
-      dim25: {
-        boxShadow:
-          '0 0 75px #fff, 0 0 75px #fff, 0 0 75px #fff, 0 0 75px #fff, 0 0 75px #fff',
-      },
-      dim50: {
-        boxShadow:
-          '0 0 100px #fff, 0 0 100px #fff, 0 0 100px #fff, 0 0 100px #fff, 0 0 100px #fff',
-      },
-      dim75: {
-        boxShadow:
-          '0 0 125px #fff, 0 0 125px #fff, 0 0 125px #fff, 0 0 125px #fff, 0 0 125px #fff',
+          '0 0 $$dimLevel $$temp, 0 0 $$dimLevel $$temp, 0 0 $$dimLevel $$temp, 0 0 $$dimLevel $$temp, 0 0 $$dimLevel $$temp',
       },
     },
   },

@@ -10,6 +10,11 @@ export const { styled, css } = createStitches({
       red500: 'hsl(352,100%,62%)',
       // background
       'bg-primary': '#F4F4F0',
+
+      // potlights
+      temp3000: '#fffbcc',
+      temp4000: '#ffffff',
+      temp5000: '#eafbff',
     },
     space: {
       1: '5px',
@@ -26,6 +31,7 @@ export const { styled, css } = createStitches({
     fonts: {
       helvetica: 'Helvetica, apple-system, sans-serif',
       monologue: 'Monologue',
+      maragsf: 'Maragsf',
       mono: 'Söhne Mono, menlo, monospace',
     },
     fontWeights: {},
@@ -43,16 +49,24 @@ export const { styled, css } = createStitches({
 
 export const globalStyles = globalCss({
   body: {
-    margin: 0,
-    padding: 0,
     boxSizing: 'border-box',
     backgroundColor: '#F4F4F0',
     fontSmooth: 'subpixel-antialiased',
   },
-  '@font-face': {
-    src: `url('fonts/Monologue.ttf') format('woff2');`,
-    fontFamily: 'Monologue',
+  '*': {
+    padding: 0,
+    margin: 0,
   },
+  '@font-face': [
+    {
+      src: `url('fonts/Monologue.ttf') format('woff2');`,
+      fontFamily: 'Monologue',
+    },
+    {
+      src: 'url("fonts/Maragsƒ.otf") format("opentype")',
+      fontFamily: 'Maragsf',
+    },
+  ],
 });
 
 export const Box = styled('div', {});

@@ -5,12 +5,22 @@ import { DimmableSwitch } from '@components/Electrical/Switch';
 
 import { dimmerMachine } from '@components/Electrical/dimmerMachine';
 import { useMachine } from '@xstate/react';
+import { motion } from 'framer-motion';
+import { CSS } from '@stitches/react';
+import { TempButton } from '@components/Electrical/TempButton';
 
-export const Hero = () => {
-  const [_state, _send, service] = useMachine(dimmerMachine);
+export const Hero = ({ css }: { css?: CSS }) => {
+  const [state, send, service] = useMachine(dimmerMachine);
+
+  const { temperature } = state.context;
 
   return (
-    <BackDrop>
+    <BackDrop
+      css={css}
+      animate={{ scale: 0.8 }}
+      initial={{ scale: 0.6 }}
+      transition={{ duration: 1 }}
+    >
       <Center css={{ top: '45%' }}>
         <CompanyName />
       </Center>
@@ -20,11 +30,35 @@ export const Hero = () => {
       <SwitchWrapper>
         <DimmableSwitch dimmerMachineRef={service} />
       </SwitchWrapper>
+      <TempWrapper css={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+        <TempButton
+          variant={'3000'}
+          active={temperature === '3000' ? true : false}
+          onClick={() => send({ type: 'CHANGE_TEMP', temp: '3000' })}
+        >
+          3000
+        </TempButton>
+
+        <TempButton
+          variant={'4000'}
+          active={temperature === '4000' ? true : false}
+          onClick={() => send({ type: 'CHANGE_TEMP', temp: '4000' })}
+        >
+          4000
+        </TempButton>
+        <TempButton
+          variant={'5000'}
+          active={temperature === '5000' ? true : false}
+          onClick={() => send({ type: 'CHANGE_TEMP', temp: '5000' })}
+        >
+          5000
+        </TempButton>
+      </TempWrapper>
     </BackDrop>
   );
 };
 
-const BackDrop = styled('div', {
+const BackDrop = styled(motion.div, {
   position: 'relative',
   width: '773px',
   height: '773px',
@@ -44,5 +78,12 @@ const SwitchWrapper = styled('div', {
   position: 'absolute',
   bottom: '-10%',
   left: '50%',
+  transform: 'translateX(-50%)',
+});
+
+const TempWrapper = styled('div', {
+  position: 'absolute',
+  bottom: '-10%',
+  left: '77%',
   transform: 'translateX(-50%)',
 });
