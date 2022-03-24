@@ -17,9 +17,9 @@ export const Hero = ({ css }: { css?: CSS }) => {
   return (
     <BackDrop
       css={css}
-      animate={{ scale: 0.8 }}
-      initial={{ scale: 0.6 }}
-      transition={{ duration: 1 }}
+      animate={{ scale: 0.8, translateY: 0, opacity: 1 }}
+      initial={{ scale: 0.6, translateY: 20, opacity: 0 }}
+      transition={{ duration: 0.3, delay: 0.4 }}
     >
       <Center css={{ top: '45%' }}>
         <CompanyName />

@@ -1,4 +1,4 @@
-import { styled, css } from '@ui/stiches';
+import { styled } from '@ui/stiches';
 import { useActor } from '@xstate/react';
 import type { IDimmerMachine } from './dimmerMachine';
 
@@ -66,7 +66,7 @@ const LightSource = styled('div', {
   top: '50%',
   transform: 'translate(-50%, -50%)',
 
-  transition: 'all 500ms ease-in-out',
+  transition: 'all 250ms ease-in-out',
   // tokens
   $$temp: '#fffbcc', // 3000: #fffbcc 4000: #ffffff 5000:
   $$dimLevel: '100px',
