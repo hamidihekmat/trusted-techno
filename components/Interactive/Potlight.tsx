@@ -15,7 +15,7 @@ export const Potlight = ({
 
   const { dimLevel, temperature } = state.context;
 
-  const dimConfig = { initial: 100, multiplier: 1.3 };
+  const dimConfig = { initial: 30, multiplier: 1.1 };
 
   const tempColor =
     temperature === '3000'
@@ -73,7 +73,7 @@ const LightSource = styled('div', {
   transition: 'all 250ms ease-in-out',
   // tokens
   $$temp: '#fffbcc', // 3000: #fffbcc 4000: #ffffff 5000:
-  $$dimLevel: '100px',
+  $$dimLevel: '50px',
   variants: {
     variant: {
       active: {

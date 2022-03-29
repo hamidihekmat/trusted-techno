@@ -105,8 +105,11 @@ const LogoSVG = styled('svg', {
 const BackDrop = styled('div', {
   display: 'flex',
   justifyContent: 'center',
-  backgroundColor: '#303030',
+  background: 'url(/images/dark_wall.png)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
   borderRadius: '50%',
+
   maxWidth: '35rem',
   width: '35rem',
   height: '35rem',

@@ -28,6 +28,7 @@ export const { styled, css } = createStitches({
       4: '2.25rem', // 36.00px
       5: '1.5rem', // 24.00px
       6: '1rem', // 16.00px
+      7: '0.875rem',
     },
     fonts: {
       helvetica: 'Helvetica, apple-system, sans-serif',
