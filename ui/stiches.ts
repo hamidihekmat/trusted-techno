@@ -22,11 +22,12 @@ export const { styled, css } = createStitches({
       3: '15px',
     },
     fontSizes: {
-      1: '121.50px',
-      2: '54px',
-      3: '36px',
-      4: '24px',
-      5: '16.00px',
+      1: '7.594rem', // 121.50px
+      2: '5.063rem', // 81.00px
+      3: '3.375rem', // 54.00px
+      4: '2.25rem', // 36.00px
+      5: '1.5rem', // 24.00px
+      6: '1rem', // 16.00px
     },
     fonts: {
       helvetica: 'Helvetica, apple-system, sans-serif',
@@ -45,13 +46,22 @@ export const { styled, css } = createStitches({
     zIndices: {},
     transitions: {},
   },
+  media: {
+    bps: '(max-width: 600px)',
+    bpm: '(max-width: 900px)',
+    bpl: '(max-width: 1200px)',
+  },
 });
 
 export const globalStyles = globalCss({
   body: {
     boxSizing: 'border-box',
     backgroundColor: '#F4F4F0',
-    fontSmooth: 'subpixel-antialiased',
+    '-webkit-font-smoothing': 'antialiased',
+    'text-rendering': 'optimizelegibility',
+  },
+  p: {
+    marginBottom: '1rem',
   },
   '*': {
     padding: 0,

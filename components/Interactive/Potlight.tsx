@@ -1,11 +1,15 @@
+import { CSS } from '@stitches/react';
 import { styled } from '@ui/stiches';
 import { useActor } from '@xstate/react';
+import { motion } from 'framer-motion';
 import type { IDimmerMachine } from './dimmerMachine';
 
 export const Potlight = ({
   dimmerMachineRef,
+  css,
 }: {
   dimmerMachineRef: IDimmerMachine;
+  css?: CSS;
 }) => {
   const [state] = useActor(dimmerMachineRef);
 
@@ -21,46 +25,46 @@ export const Potlight = ({
       : '#f0fdff';
 
   return (
-    <Wrapper>
-      <OuterRing>
-        <LightSource
-          css={{
-            $$temp: tempColor,
-            $$dimLevel: state.matches('dim')
-              ? `${dimConfig.initial + dimLevel * dimConfig.multiplier}px`
-              : undefined,
-          }}
-          variant={
-            state.matches('active')
-              ? 'active'
-              : state.matches('dim')
-              ? 'dim'
-              : 'inactive'
-          }
-        />
-      </OuterRing>
-    </Wrapper>
+    <OuterRing css={css}>
+      <LightSource
+        css={{
+          $$temp: tempColor,
+          $$dimLevel: state.matches('dim')
+            ? `${dimConfig.initial + dimLevel * dimConfig.multiplier}px`
+            : undefined,
+        }}
+        variant={
+          state.matches('active')
+            ? 'active'
+            : state.matches('dim')
+            ? 'dim'
+            : 'inactive'
+        }
+      />
+    </OuterRing>
   );
 };
 
-const Wrapper = styled('div', {
-  filter: 'drop-shadow(-4px 4px 20px rgba(0, 0, 0, 0.1))',
-});
-
 const OuterRing = styled('div', {
   position: 'relative',
-  width: '295px',
-  height: '291.16px',
+  maxWidth: '16rem',
+  width: '100%',
   borderRadius: '50%',
+  aspectRatio: '1 / 1',
   background: 'White',
+  filter: 'drop-shadow(-4px 4px 20px rgba(0, 0, 0, 0.1))',
   boxShadow:
     '-24px -24px 48px 0px rgba(231, 231, 231, 1) inset, 24px 24px 48px 0px rgba(154, 154, 154, 0.25) inset',
+
+  '@bps': {
+    maxWidth: '50%',
+  },
 });
 
 const LightSource = styled('div', {
   position: 'absolute',
-  width: '203.73px',
-  height: '201.28px',
+  width: '75%',
+  aspectRatio: '1 / 1',
   borderRadius: '50%',
   left: '50%',
   top: '50%',

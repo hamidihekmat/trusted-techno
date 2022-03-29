@@ -23,7 +23,7 @@ export const dimmerMachine = createMachine(
     },
     tsTypes: {} as import('./dimmerMachine.typegen').Typegen0,
     id: 'light',
-    initial: 'inactive',
+    initial: 'active',
     context: {
       dimLevel: 0,
       temperature: '3000',

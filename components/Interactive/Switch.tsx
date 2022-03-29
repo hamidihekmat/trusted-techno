@@ -2,11 +2,14 @@ import { styled } from '@ui/stiches';
 import { IDimmerMachine } from './dimmerMachine';
 
 import { useActor } from '@xstate/react';
+import { CSS } from '@stitches/react';
 
 export const DimmableSwitch = ({
   dimmerMachineRef,
+  css,
 }: {
   dimmerMachineRef: IDimmerMachine;
+  css?: CSS;
 }) => {
   const [state, send] = useActor(dimmerMachineRef);
   const { dimLevel } = state.context;
@@ -20,7 +23,7 @@ export const DimmableSwitch = ({
   };
 
   return (
-    <FacePlate>
+    <FacePlate css={css}>
       <OuterSwitch>
         <SwitchButton
           onClick={handleToggle}
@@ -30,7 +33,6 @@ export const DimmableSwitch = ({
               : 'inactive'
           }
         />
-        <LutronText>Lutron</LutronText>
       </OuterSwitch>
       <Dimmer
         type="range"
@@ -49,33 +51,37 @@ const FacePlate = styled('div', {
   '-webkit-touch-callout': 'none',
   'user-select': 'none',
 
+  position: 'relative',
   width: '200px',
   height: '270px',
-  minHeight: '270px',
-  left: '656px',
-  top: '702px',
 
   background: 'White',
   border: '1px solid rgba(0, 0, 0, 0.1)',
   boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1), inset 0px 0px 48px 1px #DCDCDC',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  '@bpm': {
+    width: '165px',
+    height: '225px',
+  },
 });
 
 const OuterSwitch = styled('div', {
-  position: 'absolute',
-  width: '80px',
-  height: '180px',
+  position: 'relative',
+  width: '40%',
+  height: '70%',
   background: 'inherit',
   border: '1px solid #CFCFCF',
   boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.1)',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%,-50%)',
 });
 
 const SwitchButton = styled('div', {
   position: 'absolute',
-  width: '80px',
-  height: '90px',
+  width: '100%',
+  height: '50%',
   background: '#F7F7F7',
   border: '1px solid #CFCFCF',
   cursor: 'pointer',
@@ -94,26 +100,13 @@ const SwitchButton = styled('div', {
   },
 });
 
-const LutronText = styled('p', {
-  position: 'absolute',
-  fontFamily: '$helvetica',
-  fontSize: '8px',
-  fontWeight: 'lighter',
-  textTransform: 'uppercase',
-  color: '#BBBBBB',
-  bottom: '3%',
-  left: '13%',
-});
-
 const Dimmer = styled('input', {
   position: 'absolute',
   background: '#FFFFFF',
-  bottom: '45%',
-  right: '-20%',
   transform: 'rotate(-90deg)',
   cursor: 'pointer',
-
-  width: '170px',
+  left: '35%',
+  width: '90%',
   color: 'White',
   '&:focus': {
     outline: 'none',
